@@ -2,8 +2,8 @@ import os
 import threading
 
 NUM_THREADS = 100
-VIDEO_ROOT = '20bn-something-something-v2'         # Downloaded webm videos
-FRAME_ROOT = '20bn-something-something-v2-frames'  # Directory for extracted frames
+VIDEO_ROOT = '/mnt/nas2/GrimaRepo/datasets/20BN-SOMETHING-SOMETHING-V2/20bn-something-something-v2/'         # Downloaded webm videos
+FRAME_ROOT = '/storage/20BN-SOMETHING-SOMETHING-V2-1/20bn-something-something-v2-frames'  # Directory for extracted frames
 
 
 def split(l, n):
