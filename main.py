@@ -112,7 +112,7 @@ def main():
     #     criterion = torch.nn.CrossEntropyLoss().cuda()
     # else:
     #     raise ValueError("Unknown loss type")
-    criterion = SmoothSVM(n_classes=num_class, k=topk, tau=tau, alpha=alpha)
+    criterion = SmoothSVM(n_classes=num_class, k=topk, tau=tau, alpha=alpha).cuda()
 
     for group in policies:
         print(('group: {} has {} params, lr_mult: {}, decay_mult: {}'.format(
