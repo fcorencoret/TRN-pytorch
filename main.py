@@ -44,7 +44,8 @@ def main():
     policies = model.get_optim_policies()
     train_augmentation = model.get_augmentation()
 
-    model = torch.nn.DataParallel(model, device_ids=args.gpus).cuda()
+    # model = torch.nn.DataParallel(model, device_ids=args.gpus).cuda()
+    model = torch.nn.DataParallel(model).cuda()
 
     if args.resume:
         if os.path.isfile(args.resume):
