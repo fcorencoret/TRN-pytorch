@@ -55,7 +55,7 @@ parser.add_argument('--start-epoch', default=0, type=int, metavar='N',
 parser.add_argument('--gpus', nargs='+', type=int, default=None)
 parser.add_argument('--flow_prefix', default="", type=str)
 parser.add_argument('--root_log',type=str, default='log')
-parser.add_argument('--root_model', type=str, default='model')
+parser.add_argument('--root_model', type=str, default='checkpoints')
 parser.add_argument('--root_output',type=str, default='output')
 
 
