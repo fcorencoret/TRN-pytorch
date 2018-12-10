@@ -28,7 +28,7 @@ def return_something(modality):
 
 
 def return_somethingv2(modality):
-    filename_categories = 'something/v2/category.txt'
+    filename_categories = '/storage/20BN-SOMETHING-SOMETHING-V2-1/category.txt'
     if modality == 'RGB':
         root_data = '/storage/20BN-SOMETHING-SOMETHING-V2-1/20bn-something-something-v2-frames'
         filename_imglist_train = '/storage/20BN-SOMETHING-SOMETHING-V2-1/train_videofolder.txt'
