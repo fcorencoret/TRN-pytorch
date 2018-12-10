@@ -30,11 +30,9 @@ def return_something(modality):
 def return_somethingv2(modality):
     filename_categories = 'something/v2/category.txt'
     if modality == 'RGB':
-        # root_data = '/data/vision/oliva/scratch/bzhou/video/something-something/v2/20bn-something-something-v2'
-        root_data = '/mnt/localssd2/aandonia/something/v2/20bn-something-something-v2-frames'
-        # root_data = '/mnt/localssd1/aandonia/something/v2/20bn-something-something-v2-frames'
-        filename_imglist_train = 'something/v2/train_videofolder.txt'
-        filename_imglist_val = 'something/v2/val_videofolder.txt'
+        root_data = '/storage/20BN-SOMETHING-SOMETHING-V2-1/20bn-something-something-v2-frames'
+        filename_imglist_train = '/storage/20BN-SOMETHING-SOMETHING-V2-1/train_videofolder.txt'
+        filename_imglist_val = '/storage/20BN-SOMETHING-SOMETHING-V2-1/val_videofolder.txt'
         prefix = '{:06d}.jpg'
     elif modality == 'Flow':
         #root_data = '/data/vision/oliva/scratch/bzhou/video/something-something/flow'
