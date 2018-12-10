@@ -15,11 +15,16 @@ from transforms import *
 from opts import parser
 import datasets_video
 
+from losses.svm import SmoothSVM
+
 
 best_prec1 = 0
+topk = 5
+tau = 1
+alpha = 1
 
 def main():
-    global args, best_prec1
+    global args, best_prec1, topk, tau, alpha
     args = parser.parse_args()
     check_rootfolders()
 
@@ -103,10 +108,11 @@ def main():
         num_workers=args.workers, pin_memory=True)
 
     # define loss function (criterion) and optimizer
-    if args.loss_type == 'nll':
-        criterion = torch.nn.CrossEntropyLoss().cuda()
-    else:
-        raise ValueError("Unknown loss type")
+    # if args.loss_type == 'nll':
+    #     criterion = torch.nn.CrossEntropyLoss().cuda()
+    # else:
+    #     raise ValueError("Unknown loss type")
+    criterion = SmoothSVM(n_classes=num_class, k=topk, tau=tau, alpha=alpha)
 
     for group in policies:
         print(('group: {} has {} params, lr_mult: {}, decay_mult: {}'.format(
