@@ -17,7 +17,7 @@ from torch.nn import functional as F
 # options
 parser = argparse.ArgumentParser(
     description="TRN testing on the full validation set")
-parser.add_argument('dataset', type=str, choices=['something','jester','moments','charades'])
+parser.add_argument('dataset', type=str, choices=['something','jester','moments','charades', 'somethingv2'])
 parser.add_argument('modality', type=str, choices=['RGB', 'Flow', 'RGBDiff'])
 parser.add_argument('weights', type=str)
 parser.add_argument('--arch', type=str, default="resnet101")
@@ -118,7 +118,7 @@ else:
 
 
 #net = torch.nn.DataParallel(net.cuda(devices[0]), device_ids=devices)
-net = torch.nn.DataParallel(net.cuda())
+net = torch.nn.DataParallel(net).cuda()
 net.eval()
 
 data_gen = enumerate(data_loader)
