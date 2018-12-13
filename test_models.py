@@ -237,8 +237,8 @@ if args.save_scores is not None:
         lines = fp.readlines()
         for line in lines:
             ids.append(int(line.strip().split()[0]))
-    np.save(args.save_scores + 'video_indices', ids)
-    np.save(args.save_scores + 'video_preds', video_pred_5)
-    np.save(args.save_scores + 'video_labels', video_labels)
+    np.save(args.save_scores + '/video_indices', ids)
+    np.save(args.save_scores + '/video_preds', video_pred_5)
+    np.save(args.save_scores + '/video_labels', video_labels)
 
 
