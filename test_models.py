@@ -191,25 +191,29 @@ for i, (data, label) in train_gen:
     if i >= train_max_num:
         break
     rst = eval_video((i, data, label))
-    video_pred_5.append((np.mean(rst[1], axis=0)))
+    video_pred_5.append((np.mean(rst[1], axis=0))[0])
     video_labels.append(rst[2])
-    # output.append(rst[1:])
-    # cnt_time = time.time() - proc_start_time
-    # prec1, prec5 = accuracy(torch.from_numpy(np.mean(rst[1], axis=0)), label, topk=(1, 5))
-    # top1.update(prec1[0], 1)
-    # top5.update(prec5[0], 1)
-    # print('video {} done, total {}/{}, average {:.3f} sec/video, moving Prec@1 {:.3f} Prec@5 {:.3f}'.format(i, i+1,
-                                                                    # train_total_num,
-                                                                    # float(cnt_time) / (i+1), top1.avg, top5.avg))
+    cnt_time = time.time() - proc_start_time
+    prec1, prec5 = accuracy(torch.from_numpy(np.mean(rst[1], axis=0)), label, topk=(1, 5))
+    top1.update(prec1[0], 1)
+    top5.update(prec5[0], 1)
+    print('video {} done, total {}/{}, average {:.3f} sec/video, moving Prec@1 {:.3f} Prec@5 {:.3f}'.format(i, i+1,
+                                                                    train_total_num,
+                                                                    float(cnt_time) / (i+1), top1.avg, top5.avg))
+
+print('-----Train Evaluation is finished------')
+print('Overall Prec@1 {:.02f}% Prec@5 {:.02f}%'.format(top1.avg, top5.avg))
+
+top1 = AverageMeter()
+top5 = AverageMeter()
 
 print('-- Preprocessing val data')
 for i, (data, label) in val_gen:
     if i >= val_max_num:
         break
     rst = eval_video((i, data, label))
-    video_pred_5.append((np.mean(rst[1], axis=0)))
+    video_pred_5.append((np.mean(rst[1], axis=0))[0])
     video_labels.append(rst[2])
-    # output.append(rst[1:])
     cnt_time = time.time() - proc_start_time
     prec1, prec5 = accuracy(torch.from_numpy(np.mean(rst[1], axis=0)), label, topk=(1, 5))
     top1.update(prec1[0], 1)
@@ -218,20 +222,7 @@ for i, (data, label) in val_gen:
                                                                     val_total_num,
                                                                     float(cnt_time) / (i+1), top1.avg, top5.avg))
 
-
-# video_pred_5 = [(np.mean(x[0], axis=0)).argsort()[:5] for x in output]
-# video_labels = [x[1] for x in output]
-
-
-cf = confusion_matrix(video_labels, [np.argmax(np.mean(x, axis=0)) for x in video_pred_5]).astype(float)
-
-cls_cnt = cf.sum(axis=1)
-cls_hit = np.diag(cf)
-
-cls_acc = cls_hit / cls_cnt
-
-print('-----Evaluation is finished------')
-print('Class Accuracy {:.02f}%'.format(np.mean(cls_acc) * 100))
+print('-----Val Evaluation is finished------')
 print('Overall Prec@1 {:.02f}% Prec@5 {:.02f}%'.format(top1.avg, top5.avg))
 
 if args.save_scores is not None:
@@ -241,11 +232,11 @@ if args.save_scores is not None:
     with open(args.train_list, 'r') as fp:
         lines = fp.readlines()
         for line in lines:
-            ids.append(line.strip().split()[0])
+            ids.append(int(line.strip().split()[0]))
     with open(args.val_list, 'r') as fp:
         lines = fp.readlines()
         for line in lines:
-            ids.append(line.strip().split()[0])
+            ids.append(int(line.strip().split()[0]))
     np.save(args.save_scores + 'video_indices', ids)
     np.save(args.save_scores + 'video_preds', video_pred_5)
     np.save(args.save_scores + 'video_labels', video_labels)
