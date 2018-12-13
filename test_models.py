@@ -199,7 +199,7 @@ for i, (data, label) in train_gen:
     top1.update(prec1[0], 1)
     top5.update(prec5[0], 1)
     print('video {} done, total {}/{}, average {:.3f} sec/video, moving Prec@1 {:.3f} Prec@5 {:.3f}'.format(i, i+1,
-                                                                    total_num,
+                                                                    train_total_num,
                                                                     float(cnt_time) / (i+1), top1.avg, top5.avg))
 
 print('-- Preprocessing val data')
@@ -215,7 +215,7 @@ for i, (data, label) in val_gen:
     top1.update(prec1[0], 1)
     top5.update(prec5[0], 1)
     print('video {} done, total {}/{}, average {:.3f} sec/video, moving Prec@1 {:.3f} Prec@5 {:.3f}'.format(i, i+1,
-                                                                    total_num,
+                                                                    val_total_num,
                                                                     float(cnt_time) / (i+1), top1.avg, top5.avg))
 
 
