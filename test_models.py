@@ -187,7 +187,7 @@ top1 = AverageMeter()
 top5 = AverageMeter()
 
 print('-- Preprocessing train data')
-for i, (data, label, video_id) in train_gen:
+for i, (data, label) in train_gen:
     if i >= 1:
         break
     rst = eval_video((i, data, label))
@@ -203,7 +203,7 @@ for i, (data, label, video_id) in train_gen:
                                                                     float(cnt_time) / (i+1), top1.avg, top5.avg))
 
 print('-- Preprocessing val data')
-for i, (data, label, video_id) in val_gen:
+for i, (data, label) in val_gen:
     if i >= 1:
         break
     rst = eval_video((i, data, label))
