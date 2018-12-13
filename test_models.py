@@ -188,7 +188,7 @@ top5 = AverageMeter()
 
 print('-- Preprocessing train data')
 for i, (data, label) in train_gen:
-    if i >= 1:
+    if i >= train_max_num:
         break
     rst = eval_video((i, data, label))
     video_pred_5.append((np.mean(rst[1], axis=0)))
@@ -204,7 +204,7 @@ for i, (data, label) in train_gen:
 
 print('-- Preprocessing val data')
 for i, (data, label) in val_gen:
-    if i >= 1:
+    if i >= val_max_num:
         break
     rst = eval_video((i, data, label))
     video_pred_5.append((np.mean(rst[1], axis=0)))
@@ -237,9 +237,16 @@ print('Overall Prec@1 {:.02f}% Prec@5 {:.02f}%'.format(top1.avg, top5.avg))
 if args.save_scores is not None:
 
     # reorder before saving
-    train_name_list = [x.strip().split()[0] for x in open(args.train_list)]
-    val_name_list = [x.strip().split()[0] for x in open(args.val_list)]
-    np.save(args.save_scores + 'video_indices', train_name_list + val_name_list)
+    ids = []
+    with open(args.train_list, 'r') as fp:
+        lines = fp.readlines()
+        for line in lines:
+            ids.append(line.strip().split()[0])
+    with open(args.test_list, 'r') as fp:
+        lines = fp.readlines()
+        for line in lines:
+            ids.append(line.strip().split()[0])
+    np.save(args.save_scores + 'video_indices', ids)
     np.save(args.save_scores + 'video_preds', video_pred_5)
     np.save(args.save_scores + 'video_labels', video_labels)
 
