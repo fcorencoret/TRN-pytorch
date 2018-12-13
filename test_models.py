@@ -23,7 +23,7 @@ parser.add_argument('weights', type=str)
 parser.add_argument('--arch', type=str, default="resnet101")
 parser.add_argument('-b', '--batch-size', default=32, type=int,
                     metavar='N', help='mini-batch size (default: 32)')
-parser.add_argument('--save_scores', type=str, default=None)
+parser.add_argument('--save_scores', type=str, default='checkpoints')
 parser.add_argument('--test_segments', type=int, default=25)
 parser.add_argument('--max_num', type=int, default=-1)
 parser.add_argument('--test_crops', type=int, default=10)
@@ -110,7 +110,7 @@ val_loader = torch.utils.data.DataLoader(
                        ToTorchFormatTensor(div=(args.arch not in ['BNInception','InceptionV3'])),
                        GroupNormalize(net.input_mean, net.input_std),
                    ])),
-        batch_size=args.batch_size, shuffle=False,
+        batch_size=1, shuffle=False,
         num_workers=args.workers * 2, pin_memory=True)
 
 train_loader = torch.utils.data.DataLoader(
@@ -125,7 +125,7 @@ train_loader = torch.utils.data.DataLoader(
                        ToTorchFormatTensor(div=(args.arch not in ['BNInception','InceptionV3'])),
                        GroupNormalize(net.input_mean, net.input_std),
                    ])),
-        batch_size=args.batch_size, shuffle=False,
+        batch_size=1, shuffle=False,
         num_workers=args.workers * 2, pin_memory=True)
 
 if args.gpus is not None:
