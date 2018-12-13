@@ -194,13 +194,13 @@ for i, (data, label) in train_gen:
     video_pred_5.append((np.mean(rst[1], axis=0)))
     video_labels.append(rst[2])
     # output.append(rst[1:])
-    cnt_time = time.time() - proc_start_time
-    prec1, prec5 = accuracy(torch.from_numpy(np.mean(rst[1], axis=0)), label, topk=(1, 5))
-    top1.update(prec1[0], 1)
-    top5.update(prec5[0], 1)
-    print('video {} done, total {}/{}, average {:.3f} sec/video, moving Prec@1 {:.3f} Prec@5 {:.3f}'.format(i, i+1,
-                                                                    train_total_num,
-                                                                    float(cnt_time) / (i+1), top1.avg, top5.avg))
+    # cnt_time = time.time() - proc_start_time
+    # prec1, prec5 = accuracy(torch.from_numpy(np.mean(rst[1], axis=0)), label, topk=(1, 5))
+    # top1.update(prec1[0], 1)
+    # top5.update(prec5[0], 1)
+    # print('video {} done, total {}/{}, average {:.3f} sec/video, moving Prec@1 {:.3f} Prec@5 {:.3f}'.format(i, i+1,
+                                                                    # train_total_num,
+                                                                    # float(cnt_time) / (i+1), top1.avg, top5.avg))
 
 print('-- Preprocessing val data')
 for i, (data, label) in val_gen:
@@ -242,7 +242,7 @@ if args.save_scores is not None:
         lines = fp.readlines()
         for line in lines:
             ids.append(line.strip().split()[0])
-    with open(args.test_list, 'r') as fp:
+    with open(args.val_list, 'r') as fp:
         lines = fp.readlines()
         for line in lines:
             ids.append(line.strip().split()[0])
